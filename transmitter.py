@@ -6,7 +6,12 @@ from PIL import Image
 from pathlib import Path
 import numpy as np
 import ctypes
-ctypes.windll.shcore.SetProcessDpiAwareness(1)  
+import sys
+
+# Windows-only: opt into per-monitor DPI awareness so the fullscreen surface
+# matches the physical resolution. ctypes.windll does not exist on other platforms.
+if sys.platform == "win32":
+    ctypes.windll.shcore.SetProcessDpiAwareness(1)
 
 import struct, base64
 
